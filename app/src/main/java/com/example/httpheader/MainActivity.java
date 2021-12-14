@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void retrofitRequest(){
+        ProgressBar progressBar = findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.VISIBLE);
+
         Retrofit retrofit = new Retrofit.Builder().
                 baseUrl("https://covid-19-data.p.rapidapi.com/help/").
                 addConverterFactory(GsonConverterFactory.create()).build();
@@ -53,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
                             Double.toString(pais.getLatitude()), Double.toString(pais.getLongitude()));
                 }
                 listadoPaises.setText(responseCountries);
+                progressBar.setVisibility(View.INVISIBLE);
             }
 
             @Override
